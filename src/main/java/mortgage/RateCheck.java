@@ -46,11 +46,11 @@ public class RateCheck {
         propertyTypeDropdown.click();
         WebElement singleFamilyHome = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/mortgage-quote/div[1]/div[2]/div[6]/div[2]/ui-container/div/ui-options/div[1]/div/ul/li[2]"));
         singleFamilyHome.click();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(30);
         System.out.println("Loading rates...");
         WebElement seeMyRatesButton = driver.findElement(By.id("seeMyRatesButton"));
         seeMyRatesButton.click();
-        TimeUnit.SECONDS.sleep(15);
+        TimeUnit.SECONDS.sleep(60);
         System.out.println("Taking screenshot...");
         byte[] results = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
         driver.quit();
