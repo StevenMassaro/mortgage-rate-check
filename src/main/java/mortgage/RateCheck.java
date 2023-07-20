@@ -23,7 +23,7 @@ public class RateCheck {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Starting rate check on " + new Date());
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
+        options.addArguments("--headless=new", "--no-sandbox");
         WebDriver driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().setSize(new Dimension(1080, 1080));
