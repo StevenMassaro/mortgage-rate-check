@@ -1,0 +1,8 @@
+
+### Environment variables
+- PURCHASE_PRICE
+- DOWN_PAYMENT
+- ZIP_CODE
+- BOT_TOKEN
+- CHAT_ID
+- HEALTHCHECKS_URL
