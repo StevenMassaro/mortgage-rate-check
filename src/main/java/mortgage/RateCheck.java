@@ -29,6 +29,7 @@ public class RateCheck {
             attemptCount++;
             try {
                 tryRateCheck();
+                attemptCount = maxAttempts;
             } catch (Exception e) {
                 System.out.println("Failed to do rate check on attempt " +attemptCount +"/"+maxAttempts);
                 e.printStackTrace();
