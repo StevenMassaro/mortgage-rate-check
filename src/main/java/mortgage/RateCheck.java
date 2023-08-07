@@ -34,6 +34,9 @@ public class RateCheck {
                 System.out.println("Failed to do rate check on attempt " +attemptCount +"/"+maxAttempts);
                 e.printStackTrace();
                 TimeUnit.SECONDS.sleep(new Random().nextInt(60));
+                if (attemptCount == maxAttempts) {
+                    throw e;
+                }
             }
         }
     }
