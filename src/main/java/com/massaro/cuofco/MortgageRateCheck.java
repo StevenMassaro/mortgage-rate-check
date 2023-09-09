@@ -1,4 +1,4 @@
-package mortgage;
+package com.massaro.cuofco;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendPhoto;
@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class RateCheck {
+public class MortgageRateCheck {
 
     private static final String PURCHASE_PRICE = System.getenv("PURCHASE_PRICE");
     private static final String DOWN_PAYMENT = System.getenv("DOWN_PAYMENT");
@@ -29,7 +29,7 @@ public class RateCheck {
                 .withDelay(Duration.ofMinutes(1), Duration.ofMinutes(10))
                 .build();
 
-        Failsafe.with(retryPolicy).run(RateCheck::tryRateCheck);
+        Failsafe.with(retryPolicy).run(MortgageRateCheck::tryRateCheck);
     }
 
     private static void tryRateCheck() throws InterruptedException {
@@ -45,18 +45,18 @@ public class RateCheck {
             WebElement purchasePriceInputBox = findInputByName(driver, "purchasePrice");
             purchasePriceInputBox.clear();
             purchasePriceInputBox.sendKeys(PURCHASE_PRICE);
-            WebElement downPaymentDollars = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/mortgage-quote/div[1]/div[2]/div[3]/ui-range-slider/div[2]/ui-input/div/input"));
+            WebElement downPaymentDollars = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/com.massaro.cuofco.mortgage-quote/div[1]/div[2]/div[3]/ui-range-slider/div[2]/ui-input/div/input"));
             downPaymentDollars.clear();
             downPaymentDollars.sendKeys(DOWN_PAYMENT);
             WebElement zip = findInputByName(driver, "RateSelectionZipCode");
             zip.sendKeys(ZIP_CODE);
-            WebElement creditScoreDropdown = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/mortgage-quote/div[1]/div[2]/div[5]/div[2]/ui-container/div/ui-options/div[1]/div/input"));
+            WebElement creditScoreDropdown = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/com.massaro.cuofco.mortgage-quote/div[1]/div[2]/div[5]/div[2]/ui-container/div/ui-options/div[1]/div/input"));
             creditScoreDropdown.click();
-            WebElement creditScore780 = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/mortgage-quote/div[1]/div[2]/div[5]/div[2]/ui-container/div/ui-options/div[1]/div/ul/li[2]"));
+            WebElement creditScore780 = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/com.massaro.cuofco.mortgage-quote/div[1]/div[2]/div[5]/div[2]/ui-container/div/ui-options/div[1]/div/ul/li[2]"));
             creditScore780.click();
-            WebElement propertyTypeDropdown = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/mortgage-quote/div[1]/div[2]/div[6]/div[2]/ui-container/div/ui-options/div[1]/div/input"));
+            WebElement propertyTypeDropdown = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/com.massaro.cuofco.mortgage-quote/div[1]/div[2]/div[6]/div[2]/ui-container/div/ui-options/div[1]/div/input"));
             propertyTypeDropdown.click();
-            WebElement singleFamilyHome = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/mortgage-quote/div[1]/div[2]/div[6]/div[2]/ui-container/div/ui-options/div[1]/div/ul/li[2]"));
+            WebElement singleFamilyHome = driver.findElement(By.xpath("/html/body/platform-shell/div/public-layout/micro-app/div/pricing-index/div/consumer-pricing-container/div/com.massaro.cuofco.mortgage-quote/div[1]/div[2]/div[6]/div[2]/ui-container/div/ui-options/div[1]/div/ul/li[2]"));
             singleFamilyHome.click();
             TimeUnit.SECONDS.sleep(30);
             System.out.println("Loading rates...");

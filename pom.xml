@@ -45,7 +45,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>mortgage.RateCheck</mainClass>
+                                    <mainClass>com.massaro.cuofco.mortgage.RateCheck</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
