@@ -3,6 +3,8 @@ package mortgage;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendPhoto;
 import com.pengrad.telegrambot.response.SendResponse;
+import dev.failsafe.Failsafe;
+import dev.failsafe.RetryPolicy;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,7 +12,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class RateCheck {
@@ -20,25 +21,15 @@ public class RateCheck {
     private static final String ZIP_CODE = System.getenv("ZIP_CODE");
     private static final String BOT_TOKEN = System.getenv("BOT_TOKEN");
     private static final String CHAT_ID = System.getenv("CHAT_ID");
+    private static final String RETRIES = System.getenv().getOrDefault("RETRIES", "3");
 
-    public static void main(String[] args) throws InterruptedException {
-        System.out.println("Starting rate check on " + new Date());
-        int attemptCount = 0;
-        int maxAttempts = 3;
-        while (attemptCount < maxAttempts) {
-            attemptCount++;
-            try {
-                tryRateCheck();
-                attemptCount = maxAttempts;
-            } catch (Exception e) {
-                System.out.println("Failed to do rate check on attempt " +attemptCount +"/"+maxAttempts);
-                e.printStackTrace();
-                TimeUnit.SECONDS.sleep(new Random().nextInt(60));
-                if (attemptCount == maxAttempts) {
-                    throw e;
-                }
-            }
-        }
+    public static void main(String[] args) {
+        RetryPolicy<Object> retryPolicy = RetryPolicy.builder()
+                .withMaxRetries(Integer.parseInt(RETRIES))
+                .withDelay(Duration.ofMinutes(1), Duration.ofMinutes(10))
+                .build();
+
+        Failsafe.with(retryPolicy).run(RateCheck::tryRateCheck);
     }
 
     private static void tryRateCheck() throws InterruptedException {
