@@ -1,10 +1,5 @@
 package com.massaro.cuofco;
 
-import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.request.SendPhoto;
-import com.pengrad.telegrambot.response.SendResponse;
-import dev.failsafe.Failsafe;
-import dev.failsafe.RetryPolicy;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,25 +9,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class MortgageRateCheck {
+public class RateChecker {
 
-    private static final String PURCHASE_PRICE = System.getenv("PURCHASE_PRICE");
-    private static final String DOWN_PAYMENT = System.getenv("DOWN_PAYMENT");
-    private static final String ZIP_CODE = System.getenv("ZIP_CODE");
-    private static final String BOT_TOKEN = System.getenv("BOT_TOKEN");
-    private static final String CHAT_ID = System.getenv("CHAT_ID");
-    private static final String RETRIES = System.getenv().getOrDefault("RETRIES", "3");
+    private static final String PURCHASE_PRICE = System.getenv().getOrDefault("PURCHASE_PRICE", "450000");
+    private static final String DOWN_PAYMENT = System.getenv().getOrDefault("DOWN_PAYMENT", "50000");
+    private static final String ZIP_CODE = System.getenv().getOrDefault("ZIP_CODE", "80001");
 
-    public static void main(String[] args) {
-        RetryPolicy<Object> retryPolicy = RetryPolicy.builder()
-                .withMaxRetries(Integer.parseInt(RETRIES))
-                .withDelay(Duration.ofMinutes(1), Duration.ofMinutes(10))
-                .build();
+    private final TelegramAPI telegramAPI;
 
-        Failsafe.with(retryPolicy).run(MortgageRateCheck::tryRateCheck);
+    public RateChecker(TelegramAPI telegramAPI) {
+        this.telegramAPI = telegramAPI;
     }
 
-    private static void tryRateCheck() throws InterruptedException {
+    /**
+     * Check the mortgage rates and send a Telegram message with the results.
+     */
+    public void checkRates() throws InterruptedException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new", "--no-sandbox");
         WebDriver driver = new ChromeDriver(options);
@@ -67,18 +59,14 @@ public class MortgageRateCheck {
             byte[] results = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 
             System.out.println("Sending Telegram message...");
-            // send telegram message with details
-            TelegramBot telegramBot = new TelegramBot(BOT_TOKEN);
-            SendPhoto sendPhoto = new SendPhoto(CHAT_ID, results);
-            SendResponse sendResponse = telegramBot.execute(sendPhoto);
-            boolean ok = sendResponse.isOk();
+            telegramAPI.sendPhoto(results);
             System.out.println("Completed rate check on " + new Date());
         } finally {
             driver.quit();
         }
     }
 
-    private static WebElement findInputByName(WebDriver driver, String name) {
+    private WebElement findInputByName(WebDriver driver, String name) {
         List<WebElement> elements = driver.findElements(By.id("input"));
         for (WebElement element : elements) {
             if (element.getDomAttribute("name").equals(name)) {

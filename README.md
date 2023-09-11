@@ -15,9 +15,9 @@ I want to stay updated about interest rates, so I know whether to refinance my m
 
 | Name               | Required | Default value | Example value                                                 |
 |--------------------|----------|---------------|---------------------------------------------------------------|
-| `PURCHASE_PRICE`   | Yes      |               | `450000`                                                      |
-| `DOWN_PAYMENT`     | Yes      |               | `50000`                                                       |
-| `ZIP_CODE`         | Yes      |               | `12345`                                                       |
+| `PURCHASE_PRICE`   | Yes      | `450000`      | `450000`                                                      |
+| `DOWN_PAYMENT`     | Yes      | `50000`       | `50000`                                                       |
+| `ZIP_CODE`         | Yes      | `80001`       | `80001`                                                       |
 | `BOT_TOKEN`        | Yes      |               | `bot123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`                |
 | `CHAT_ID`          | Yes      |               | `123456789`                                                   |
 | `HEALTHCHECKS_URL` | No       |               | `https://hc-ping.com/00000000-0000-0000-0000-000000000000`    |
