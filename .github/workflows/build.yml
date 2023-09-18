@@ -42,7 +42,7 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots clean install
       - name: Build and push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           context: .
