@@ -41,7 +41,7 @@ jobs:
         with:
           path: |
             target
-          key: built-jar
+          key: built-jar-${{ github.run_number }}-${{ github.run_attempt }}
 
   docker-build:
     name: Build and push docker image
@@ -67,7 +67,7 @@ jobs:
         with:
           path: |
             target
-          key: built-jar
+          key: built-jar-${{ github.run_number }}-${{ github.run_attempt }}
       - name: Push README to Dockerhub
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: christian-korneck/update-container-description-action@v1
