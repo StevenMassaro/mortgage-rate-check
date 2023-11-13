@@ -1,4 +1,4 @@
-FROM stevenmassaro/scheduled-task-base:3.18 as base
+FROM stevenmassaro/recurring-task-base:3.18 as base
 RUN apk add --no-cache --update chromium chromium-chromedriver curl openjdk17-jre-headless
 
 FROM base as test
