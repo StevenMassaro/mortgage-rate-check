@@ -1,4 +1,4 @@
-package com.massaro.cuofco;
+package com.massaro.mortgagerates;
 
 import org.junit.jupiter.api.Test;
 

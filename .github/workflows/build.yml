@@ -75,7 +75,7 @@ jobs:
           DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASS: ${{ secrets.DOCKERHUB_TOKEN }}
         with:
-          destination_container_repo: stevenmassaro/cuofco-mortgage-rate-check
+          destination_container_repo: stevenmassaro/mortgage-rate-check
           provider: dockerhub
           short_description: ${{ github.event.repository.description }}
           readme_file: 'README.md'
@@ -89,5 +89,5 @@ jobs:
           context: .
           target: production
           tags: |
-            stevenmassaro/cuofco-mortgage-rate-check:latest
-            stevenmassaro/cuofco-mortgage-rate-check:${{ steps.version.outputs.VERSION }}
+            stevenmassaro/mortgage-rate-check:latest
+            stevenmassaro/mortgage-rate-check:${{ steps.version.outputs.VERSION }}

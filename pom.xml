@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>cuofco-mortgage-checker</artifactId>
+    <artifactId>mortgage-checker</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -70,7 +70,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.massaro.cuofco.Main</mainClass>
+                                    <mainClass>com.massaro.mortgagerates.Main</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>

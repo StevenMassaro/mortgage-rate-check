@@ -1,4 +1,4 @@
-package com.massaro.cuofco;
+package com.massaro.mortgagerates;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendPhoto;

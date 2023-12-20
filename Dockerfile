@@ -12,5 +12,5 @@ RUN chmod +x mvnw && \
 
 FROM base as production
 
-COPY target/cuofco-mortgage-checker-1.0-SNAPSHOT.jar cuofco.jar
-ENV COMMAND="java -jar /cuofco.jar && curl -fsS -m 10 --retry 5 -o /dev/null \"\$HEALTHCHECKS_URL\""
+COPY target/mortgage-checker-1.0-SNAPSHOT.jar mortgage-checker.jar
+ENV COMMAND="java -jar /mortgage-checker.jar && curl -fsS -m 10 --retry 5 -o /dev/null \"\$HEALTHCHECKS_URL\""
